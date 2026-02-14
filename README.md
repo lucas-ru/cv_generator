@@ -45,14 +45,23 @@ generator = LinkedInCVGenerator(template_dir="templates")
 data = generator.parse_linkedin_export("/chemin/vers/dossier/extrait")
 generator.generate_cv(data, "mon_cv.html")
 ```
+### 3️⃣ Import d'un JSON
 
-### 3️⃣ Données de Démonstration
+Pour utiliser un JSON quelques parts en local (il faut qu'il match avec celui généré en saisie intéractive).
+Un json est généré apres la saisie intéractive(1️⃣) pour faciliter les modifications
+
+```bash
+python linkedin_cv_generator.py
+# Choisissez l'option 3
+```
+
+### 4️⃣ Données de Démonstration
 
 Pour tester le template rapidement.
 
 ```bash
 python linkedin_cv_generator.py
-# Choisissez l'option 3
+# Choisissez l'option 4
 ```
 
 ## 🚀 Installation
