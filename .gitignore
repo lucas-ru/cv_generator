@@ -1,4 +1,2 @@
-outputs/*
-!outputs
-data/*
-!data
+/outputs/*
+/data/*
