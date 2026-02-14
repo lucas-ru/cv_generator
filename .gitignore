@@ -1,4 +1,2 @@
-/data/*
-!/data/
-/outputs/*
-!/outputs/
+*.json
+*_template.html

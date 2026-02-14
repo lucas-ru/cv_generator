@@ -118,6 +118,8 @@ linkedin-cv-generator/
 │
 └── templates/
     └── cv_template.html        # Template Jinja2 HTML/CSS optimisé A4
+└── data/
+└── outputs/
 ```
 
 ## 🎯 Fonctionnalités du Template
@@ -168,7 +170,7 @@ linkedin-cv-generator/
 Dans le template HTML (ligne ~380) :
 
 ```html
-{% for skill in skills[:10] %}  <!-- Limiter à 10 compétences -->
+{% for skill in skills[:25] %}  <!-- Limiter à 10 compétences -->
 ```
 
 ## 📝 Licence
@@ -195,7 +197,8 @@ Pour toute question ou problème :
 ## 🌟 Fonctionnalités
 
 ✅ **Saisie interactive** pour création rapide  
-✅ **Import depuis export LinkedIn** (CSV)  
+✅ **Import depuis export LinkedIn** (CSV) 
+✅ **Import depuis un JSON local** (CSV)  
 ✅ **Format A4 exact** (210mm × 297mm)  
 ✅ **Export PDF optimisé** avec préservation des couleurs  
 ✅ **Template élégant** avec design professionnel  
