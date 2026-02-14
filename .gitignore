@@ -1,2 +1,4 @@
-./outputs/*
-./data/*
+/data/*
+!/data/
+/outputs/*
+!/outputs/
