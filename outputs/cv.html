@@ -6,22 +6,21 @@
     <title>CV - PLUME Lucas</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Work+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* TEMPLATE 3: EDITORIAL MAGAZINE - Elegant Asymmetric */
+        /* TEMPLATE 1: SWISS PRECISION - Brutalist Minimal */
         
         :root {
-            --color-burgundy: #8b2635;
-            --color-burgundy-dark: #6d1e2c;
-            --color-gold: #d4af37;
-            --color-beige: #f5f1e8;
-            --color-beige-dark: #e8e0d0;
-            --color-charcoal: #2d2d2d;
-            --color-gray: #757575;
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-electric: #00d4ff;
+            --color-gray-dark: #1a1a1a;
+            --color-gray-med: #666666;
+            --color-gray-light: #e0e0e0;
             
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Lato', sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --font-sans: 'Work Sans', sans-serif;
         }
         
         @page { size: A4; margin: 0; }
@@ -35,8 +34,8 @@
         body {
             font-family: var(--font-sans);
             background: white;
-            color: var(--color-charcoal);
-            line-height: 1.6;
+            color: var(--color-black);
+            line-height: 1.4;
         }
         
         .page {
@@ -45,665 +44,501 @@
             margin: 0 auto;
             background: white;
             position: relative;
-            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
         }
         
-        /* Decorative elements */
-        .page::before {
+        /* Brutal geometric header */
+        .header {
+            background: var(--color-black);
+            color: white;
+            padding: 18mm 15mm 12mm 15mm;
+            position: relative;
+            border-bottom: 4px solid var(--color-electric);
+        }
+        
+        .header::after {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            width: 3mm;
-            height: 100%;
-            background: linear-gradient(180deg, var(--color-burgundy) 0%, var(--color-gold) 100%);
-            z-index: 2;
-        }
-        
-        .page::after {
-            content: '';
-            position: absolute;
-            top: 50mm;
             right: 0;
-            width: 60mm;
-            height: 150mm;
-            background: var(--color-beige);
-            opacity: 0.3;
-            transform: skewY(-5deg);
-            z-index: 0;
+            width: 80mm;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(0, 212, 255, 0.03) 10px,
+                rgba(0, 212, 255, 0.03) 20px
+            );
         }
         
-        /* Asymmetric header */
-        .header {
-            padding: 10mm 15mm 10mm 20mm;
+        .header-content {
             position: relative;
             z-index: 1;
-            background: linear-gradient(135deg, transparent 0%, rgba(245, 241, 232, 0.4) 100%);
-        }
-        
-        .decorative-line {
-            position: absolute;
-            top: 10mm;
-            left: 20mm;
-            width: 25mm;
-            height: 2px;
-            background: var(--color-gold);
         }
         
         .name {
-            font-family: var(--font-serif);
-            font-size: 36pt;
-            font-weight: 900;
-            color: var(--color-burgundy);
-            letter-spacing: -0.01em;
+            font-family: var(--font-sans);
+            font-size: 32pt;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
             line-height: 0.95;
-            margin-bottom: 4mm;
-            margin-top: 5mm;
+            margin-bottom: 8mm;
         }
         
         .headline {
-            font-family: var(--font-sans);
-            font-size: 11pt;
-            font-weight: 300;
-            color: var(--color-charcoal);
-            font-style: italic;
-            margin-bottom: 8mm;
-            max-width: 150mm;
+            font-family: var(--font-mono);
+            font-size: 9pt;
+            font-weight: 400;
+            color: var(--color-electric);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 6mm;
         }
         
-        .contact-elegant {
+        .contact-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2mm 8mm;
-            font-size: 8pt;
-            font-weight: 400;
-            color: var(--color-gray);
-            max-width: 160mm;
+            grid-template-columns: 1fr 2fr;
+            gap: 3mm;
+            font-family: var(--font-mono);
+            font-size: 7pt;
+            color: var(--color-gray-light);
         }
         
         .contact-item {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             gap: 2mm;
         }
         
         .contact-item::before {
-            content: '◆';
-            color: var(--color-gold);
-            font-size: 6pt;
+            content: '▪';
+            color: var(--color-electric);
+            font-size: 10pt;
         }
         
-        /* Asymmetric layout */
+        /* Main content */
         .content {
-            position: relative;
-            z-index: 1;
-            padding: 0 10mm 0mm 10mm;
-        }
-        
-        .layout {
             display: grid;
-            grid-template-columns: 125mm 1fr;
-            gap: 12mm;
+            grid-template-columns: 130mm 80mm;
+            gap: 0;
+            padding: 0;
         }
         
-        /* Section headers - editorial style */        
+        .main-column {
+            padding: 2mm 5mm;
+            border-right: 1px solid var(--color-black);
+        }
+        
+        .sidebar {
+            padding: 2mm 10mm;
+            background: #fafafa;
+        }
+        
+        /* Section headers - brutal and geometric */        
         .section-title {
-            font-family: var(--font-serif);
-            font-size: 14pt;
-            font-weight: 700;
-            color: var(--color-burgundy);
+            font-family: var(--font-sans);
+            font-size: 11pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             margin-bottom: 5mm;
-            position: relative;
             padding-bottom: 2mm;
+            border-bottom: 2px solid var(--color-black);
+            position: relative;
         }
         
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
-            width: 15mm;
-            height: 1px;
-            background: var(--color-gold);
+            width: 20mm;
+            height: 2px;
+            background: var(--color-electric);
         }
         
-        /* Summary - magazine pull quote style */
+        /* Summary */
         .summary {
-            font-family: var(--font-serif);
             font-size: 8.5pt;
-            line-height: 1.7;
-            color: var(--color-charcoal);
-            padding: 5mm;
-            border-left: 3px solid var(--color-burgundy);
-            background: var(--color-beige);
+            line-height: 1.5;
+            color: var(--color-gray-dark);
             margin-bottom: 2mm;
-            font-style: italic;
-            position: relative;
-        }
-        
-        .summary::before {
-            content: '"';
-            position: absolute;
-            top: 2mm;
-            left: -8mm;
-            font-size: 48pt;
-            color: var(--color-gold);
-            opacity: 0.3;
-            font-family: var(--font-serif);
-            line-height: 1;
+            padding: 4mm;
+            background: linear-gradient(to right, #f5f5f5 0%, white 100%);
+            border-left: 3px solid var(--color-electric);
         }
         
         /* Experience items */
-        .experience-item{
-            padding-bottom: 6mm;
-        }
-
-        .education-item-header{
-            display: flex;
-            flex-direction: row;
-            gap: 2mm;
-        }
-
         .experience-item,
         .education-item {
-            border-bottom: 1px solid var(--color-beige-dark);
-            position: relative;
+            padding-bottom: 3mm;
+            border-bottom: 1px solid var(--color-gray-light);
         }
         
         .experience-item:last-child,
         .education-item:last-child {
             border-bottom: none;
+            margin-bottom: 0;
         }
         
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -5mm;
-            top: 2mm;
-            width: 2mm;
-            height: 2mm;
-            background: var(--color-gold);
-            border-radius: 50%;
-        }
-        
-        .item-title {
-            font-family: var(--font-serif);
-            font-size: 11pt;
-            font-weight: 700;
-            color: var(--color-burgundy-dark);
-            margin-bottom: 1mm;
-            line-height: 1.3;
-        }
-        
-        .item-subtitle {
-            font-family: var(--font-sans);
-            font-size: 9pt;
-            font-weight: 700;
-            color: var(--color-charcoal);
+        .item-header {
             margin-bottom: 2mm;
         }
         
+        .item-title {
+            font-family: var(--font-sans);
+            font-size: 10pt;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 1mm;
+        }
+        
+        .item-subtitle {
+            font-family: var(--font-mono);
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-gray-med);
+            margin-bottom: 1mm;
+        }
+        
         .item-meta {
+            font-family: var(--font-mono);
+            font-size: 7pt;
+            color: var(--color-gray-med);
             display: flex;
             gap: 3mm;
-            font-size: 7.5pt;
-            color: var(--color-gray);
-            margin-bottom: 3mm;
-            font-style: italic;
+            margin-bottom: 2mm;
         }
         
-        .date-accent {
-            color: var(--color-burgundy);
-            font-weight: 700;
-            font-style: normal;
-        }
-        
-        .current-marker {
-            background: var(--color-gold);
-            color: var(--color-burgundy-dark);
-            padding: 1mm 2.5mm;
-            border-radius: 3px;
-            font-style: normal;
-            font-weight: 700;
+        .date-range {
+            background: var(--color-black);
+            color: white;
+            padding: 1mm 2mm;
             font-size: 7pt;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        
+        .current-badge {
+            background: var(--color-electric);
+            color: var(--color-black);
         }
         
         .item-description {
             font-size: 7pt;
-            line-height: 1.6;
-            color: var(--color-charcoal);
-            text-align: justify;
+            line-height: 1.5;
+            color: var(--color-gray-dark);
         }
         
-        /* Sidebar - elegant column */
-        .sidebar {
-            position: relative;
-            padding-top: 5mm;
-        }
-        
-        .sidebar .section {
-            margin-bottom: 8mm;
-        }
-        
-        .sidebar .section-title {
-            font-size: 11pt;
-            margin-bottom: 4mm;
-        }
-        
-        /* Skills - elegant list */
-        .skills-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5mm;
+        /* Skills - geometric grid */
+        .skills-grid {
+            display: grid;
+            gap: 2mm;
         }
         
         .skill-item {
             display: flex;
-            flex-direction: column;
-            gap: 1mm;
-            padding: 1mm 2mm;
-            border-bottom: 1px solid var(--color-beige-dark);
-        }
-        
-        .skill-item:last-child {
-            border-bottom: none;
-        }
-        
-        .skill-header {
-            display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1mm 2mm;
+            background: white;
+            border: 1px solid var(--color-black);
+            font-family: var(--font-mono);
+            font-size: 7.5pt;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .skill-item:hover {
+            background: var(--color-black);
+            color: white;
         }
         
         .skill-name {
-            font-family: var(--font-sans);
-            font-size: 8.5pt;
+            letter-spacing: 0.02em;
+        }
+        
+        .skill-count {
+            background: var(--color-electric);
+            color: var(--color-black);
+            padding: 1mm 2mm;
+            font-size: 7pt;
             font-weight: 700;
-            color: var(--color-charcoal);
-        }
-        
-        .skill-level {
-            font-family: var(--font-serif);
-            font-size: 7.5pt;
-            color: var(--color-burgundy);
-            font-weight: 600;
-        }
-        
-        .skill-bar {
-            height: 2px;
-            background: var(--color-beige-dark);
-            border-radius: 2px;
-            overflow: hidden;
-            margin-top: 1mm;
-        }
-        
-        .skill-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-burgundy) 0%, var(--color-gold) 100%);
-            border-radius: 2px;
+            min-width: 8mm;
+            text-align: center;
         }
         
         /* Footer */
         .footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 3mm 15mm 3mm 20mm;
-            background: var(--color-beige);
-            border-top: 1px solid var(--color-gold);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 7pt;
-            color: var(--color-gray);
-        }
-        
-        .footer-left {
-            font-style: italic;
-        }
-        
-        .footer-right {
-            font-weight: 700;
-            color: var(--color-burgundy);
+            background: var(--color-black);
+            color: var(--color-gray-light);
+            padding: 3mm 15mm;
+            font-family: var(--font-mono);
+            font-size: 6.5pt;
+            text-align: center;
+            border-top: 4px solid var(--color-electric);
         }
         
         /* Print optimization */
         @media print {
             body { background: white; }
             .page { box-shadow: none; }
-            .page::after { opacity: 0.2; }
             * { animation: none !important; }
-            .page::before, .decorative-line, .current-marker, .skill-bar-fill {
+            .header, .footer, .skill-item, .date-range {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
         }
         
         @media screen {
-            body { padding: 20px 0; background: #fafafa; }
-            .page { box-shadow: 0 2px 40px rgba(139, 38, 53, 0.1); }
+            body { padding: 20px 0; background: #f5f5f5; }
+            .page { box-shadow: 0 0 30px rgba(0,0,0,0.1); }
         }
     </style>
 </head>
 <body>
     <div class="page">
         <header class="header">
-            <div class="decorative-line"></div>
-            <h1 class="name">PLUME Lucas</h1>
-            <p class="headline">Ingénieur DevOps</p>
-            <div class="contact-elegant">
-                <div class="contact-item">lucas.ru74@gmail.com</div>
-                <div class="contact-item">0629398365</div>
-                <div class="contact-item">5 Avenue de gevrier 74960 Cran-Gevrier</div>
-                <div class="contact-item">linkedin.com/in/lucas-plume</div>
+            <div class="header-content">
+                <h1 class="name">PLUME Lucas</h1>
+                <p class="headline">Ingénieur DevOps</p>
+                <div class="contact-grid">
+                    <div class="contact-item">lucas.ru74@gmail.com</div>
+                    <div class="contact-item">0629398365</div>
+                    <div class="contact-item">5 Avenue de gevrier 74960 Cran-Gevrier</div>
+                    <div class="contact-item">linkedin.com/in/lucas-plume</div>
+                </div>
             </div>
         </header>
         
         <div class="content">
-            <div class="layout">
-                <div class="main-column">
+            <div class="main-column">
+                
+                <div class="summary">Actuellement en recherche de nouveaux challenges, je suis prêt à mettre ma curiosité, ma polyvalence et ma créativité au défi. Je suis quelqu'un de fiable et d'autonome, ce qui me permet de répondre à votre besoin avec clareté et minutie.</div>
+                
+                
+                
+                <section class="section">
+                    <h2 class="section-title">Expérience</h2>
                     
-                    <div class="summary">Actuellement en recherche de nouveaux challenges, je suis prêt à mettre ma curiosité, ma polyvalence et ma créativité au défi. Je suis quelqu'un de fiable et d'autonome, ce qui me permet de répondre à votre besoin avec clareté et minutie.</div>
-                    
-                    
-                    
-                    <section class="section">
-                        <h2 class="section-title">Parcours Professionnel</h2>
-                        
-                        <div class="experience-item">
+                    <div class="experience-item">
+                        <div class="item-header">
                             <h3 class="item-title">Développeur web</h3>
                             <p class="item-subtitle">Wevalgo</p>
                             <div class="item-meta">
-                                <span class="date-accent">Avril 2020 — Septembre 2021</span>
-                                
+                                <span class="date-range ">
+                                    Avril 2020 → Septembre 2021
+                                </span>
                                 <span>Chavanod, Auvergne-Rhône-Alpes, France</span>
                             </div>
-                            <p class="item-description">Création d’une nouvelle fonctionnalité pour le site en ligne. Mise en place d’unsystème de version pour la nouvelle fonctionnalité. Refonte graphique du siteinternet. Correction de bug existant.</p>
                         </div>
-                        
-                        <div class="experience-item">
+                        <p class="item-description">Création d’une nouvelle fonctionnalité pour le site en ligne. Mise en place d’unsystème de version pour la nouvelle fonctionnalité. Refonte graphique du siteinternet. Correction de bug existant.</p>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="item-header">
                             <h3 class="item-title">Développeur</h3>
                             <p class="item-subtitle">Crédit Agricole Technologies et Services</p>
                             <div class="item-meta">
-                                <span class="date-accent">Septembre 2021 — Aout 2023</span>
-                                
+                                <span class="date-range ">
+                                    Septembre 2021 → Aout 2023
+                                </span>
                                 <span>Annecy, Auvergne-Rhône-Alpes, France</span>
                             </div>
-                            <p class="item-description">Conception et réalisation d'un processus de montée de version d'agent Dynatrace. Mise en place de test de non-régression. Application d'un process à l'échelle. Correction de bugs liés aux automatismes existants</p>
                         </div>
-                        
-                        <div class="experience-item">
+                        <p class="item-description">Conception et réalisation d'un processus de montée de version d'agent Dynatrace. Mise en place de test de non-régression. Application d'un process à l'échelle. Correction de bugs liés aux automatismes existants</p>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="item-header">
                             <h3 class="item-title">Ingénieur DevOps</h3>
                             <p class="item-subtitle">Crédit Agricole Group Infrastructure Platform</p>
                             <div class="item-meta">
-                                <span class="date-accent">Octobre 2023 — Présent</span>
-                                
-                                <span class="current-marker">En cours</span>
-                                
+                                <span class="date-range current-badge">
+                                    Octobre 2023 → Présent
+                                </span>
                                 <span>Annecy, Auvergne-Rhône-Alpes, France</span>
                             </div>
-                            <p class="item-description">Gestion de la production. Création de modèle CI/CD. Automatisation de processus métier. Développement d'outils internes. Mise en place de norme pour l'observabilité dans le groupe.</p>
                         </div>
-                        
-                    </section>
+                        <p class="item-description">Gestion de la production. Création de modèle CI/CD. Automatisation de processus métier. Développement d'outils internes. Mise en place de norme pour l'observabilité dans le groupe.</p>
+                    </div>
                     
-                    
-                    
-                    <section class="section">
-                        <h2 class="section-title">Formation Académique</h2>
-                        
-                        <div class="education-item">
-                            <div class="education-item-header">
-                                <h3 class="item-title">Master - MBA</h3>
-                                <p class="item-meta">MyDigitalSchool</p>
-                            </div>
-                            <p class="item-subtitle">Management de projet - Développeur Full-stack</p>
-                            <div class="item-meta">
-                                <span class="date-accent">2021 — 2023</span>
-                            </div>
-                            
-                        </div>
-                        
-                        <div class="education-item">
-                            <div class="education-item-header">
-                                <h3 class="item-title">Licence professionnelle</h3>
-                                <p class="item-meta">Université Savoie Mont Blanc</p>
-                            </div>
-                            <p class="item-subtitle">Développement informatique multi-supports</p>
-                            <div class="item-meta">
-                                <span class="date-accent">2020 — 2021</span>
-                            </div>
-                            
-                        </div>
-                        
-                        <div class="education-item">
-                            <div class="education-item-header">
-                                <h3 class="item-title">DUT</h3>
-                                <p class="item-meta">Université Savoie Mont Blanc</p>
-                            </div>
-                            <p class="item-subtitle">Informatique</p>
-                            <div class="item-meta">
-                                <span class="date-accent">2018 — 2020</span>
-                            </div>
-                            
-                        </div>
-                        
-                    </section>
-                    
-                </div>
+                </section>
                 
-                <aside class="sidebar">
+                
+                
+                <section class="section">
+                    <h2 class="section-title">Formation</h2>
                     
-                    <section class="section">
-                        <h2 class="section-title">Expertise</h2>
-                        <div class="skills-list">
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Python</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">AngularJS</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">ServiceNow</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Zabbix</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Selenium</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Node</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Vue</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Django</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Grafana</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Prometheus</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">ELK</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Gestion de production</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Vault</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Artifactory</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">API REST</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">DevOps</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Administration Système</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Gestion de projet</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">XLRelease</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Gitlab</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Ansible</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">K8s</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Javascript</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Dynatrace</span>
-                                    
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="skill-item">
-                                <div class="skill-header">
-                                    <span class="skill-name">Méthode Agile</span>
-                                    
-                                </div>
-                                
-                            </div>
+                    <div class="education-item">
+                        <h3 class="item-title">Master - MBA - Management de projet - Développeur Full-stack</h3>
+                        <p class="item-subtitle">MyDigitalSchool</p>
+                        <div class="item-meta">
+                            <span class="date-range">2021 → 2023</span>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="education-item">
+                        <h3 class="item-title">Licence professionnelle - Développement informatique multi-supports</h3>
+                        <p class="item-subtitle">Université Savoie Mont Blanc</p>
+                        <div class="item-meta">
+                            <span class="date-range">2020 → 2021</span>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="education-item">
+                        <h3 class="item-title">DUT - Informatique</h3>
+                        <p class="item-subtitle">Université Savoie Mont Blanc</p>
+                        <div class="item-meta">
+                            <span class="date-range">2018 → 2020</span>
+                        </div>
+                        
+                    </div>
+                    
+                </section>
+                
+            </div>
+            
+            <aside class="sidebar">
+                
+                <section class="section">
+                    <h2 class="section-title">Skills</h2>
+                    <div class="skills-grid">
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Python</span>
                             
                         </div>
-                    </section>
-                    
-                </aside>
-            </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">AngularJS</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">ServiceNow</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Zabbix</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Selenium</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Node</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Vue</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Django</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Grafana</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Prometheus</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">ELK</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Gestion de production</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Vault</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Artifactory</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">API REST</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">DevOps</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Administration Système</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Gestion de projet</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">XLRelease</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Gitlab</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Ansible</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">K8s</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Javascript</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Dynatrace</span>
+                            
+                        </div>
+                        
+                        <div class="skill-item">
+                            <span class="skill-name">Méthode Agile</span>
+                            
+                        </div>
+                        
+                    </div>
+                </section>
+                
+            </aside>
         </div>
     </div>
 </body>
