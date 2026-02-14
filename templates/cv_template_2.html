@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - {{ personal_info.name }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Work+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* TEMPLATE 1: SWISS PRECISION - Brutalist Minimal */
+        
+        :root {
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-electric: #00d4ff;
+            --color-gray-dark: #1a1a1a;
+            --color-gray-med: #666666;
+            --color-gray-light: #e0e0e0;
+            
+            --font-mono: 'IBM Plex Mono', monospace;
+            --font-sans: 'Work Sans', sans-serif;
+        }
+        
+        @page { size: A4; margin: 0; }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background: white;
+            color: var(--color-black);
+            line-height: 1.4;
+        }
+        
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            background: white;
+            position: relative;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+        
+        /* Brutal geometric header */
+        .header {
+            background: var(--color-black);
+            color: white;
+            padding: 18mm 15mm 12mm 15mm;
+            position: relative;
+            border-bottom: 4px solid var(--color-electric);
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80mm;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(0, 212, 255, 0.03) 10px,
+                rgba(0, 212, 255, 0.03) 20px
+            );
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .name {
+            font-family: var(--font-sans);
+            font-size: 32pt;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            line-height: 0.95;
+            margin-bottom: 8mm;
+        }
+        
+        .headline {
+            font-family: var(--font-mono);
+            font-size: 9pt;
+            font-weight: 400;
+            color: var(--color-electric);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 6mm;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3mm;
+            font-family: var(--font-mono);
+            font-size: 7pt;
+            color: var(--color-gray-light);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 2mm;
+        }
+        
+        .contact-item::before {
+            content: '▪';
+            color: var(--color-electric);
+            font-size: 10pt;
+        }
+        
+        /* Main content */
+        .content {
+            display: grid;
+            grid-template-columns: 130mm 65mm;
+            gap: 0;
+            padding: 0;
+        }
+        
+        .main-column {
+            padding: 2mm 5mm;
+            border-right: 1px solid var(--color-black);
+        }
+        
+        .sidebar {
+            padding: 12mm 10mm;
+            background: #fafafa;
+        }
+        
+        /* Section headers - brutal and geometric */        
+        .section-title {
+            font-family: var(--font-sans);
+            font-size: 11pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 5mm;
+            padding-bottom: 2mm;
+            border-bottom: 2px solid var(--color-black);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 20mm;
+            height: 2px;
+            background: var(--color-electric);
+        }
+        
+        /* Summary */
+        .summary {
+            font-size: 8.5pt;
+            line-height: 1.5;
+            color: var(--color-gray-dark);
+            margin-bottom: 2mm;
+            padding: 4mm;
+            background: linear-gradient(to right, #f5f5f5 0%, white 100%);
+            border-left: 3px solid var(--color-electric);
+        }
+        
+        /* Experience items */
+        .experience-item,
+        .education-item {
+            padding-bottom: 3mm;
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+        
+        .experience-item:last-child,
+        .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .item-header {
+            margin-bottom: 2mm;
+        }
+        
+        .item-title {
+            font-family: var(--font-sans);
+            font-size: 10pt;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 1mm;
+        }
+        
+        .item-subtitle {
+            font-family: var(--font-mono);
+            font-size: 8pt;
+            font-weight: 600;
+            color: var(--color-gray-med);
+            margin-bottom: 1mm;
+        }
+        
+        .item-meta {
+            font-family: var(--font-mono);
+            font-size: 7pt;
+            color: var(--color-gray-med);
+            display: flex;
+            gap: 3mm;
+            margin-bottom: 2mm;
+        }
+        
+        .date-range {
+            background: var(--color-black);
+            color: white;
+            padding: 1mm 2mm;
+            font-size: 7pt;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        
+        .current-badge {
+            background: var(--color-electric);
+            color: var(--color-black);
+        }
+        
+        .item-description {
+            font-size: 7pt;
+            line-height: 1.5;
+            color: var(--color-gray-dark);
+        }
+        
+        /* Skills - geometric grid */
+        .skills-grid {
+            display: grid;
+            gap: 2mm;
+        }
+        
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1mm 2mm;
+            background: white;
+            border: 1px solid var(--color-black);
+            font-family: var(--font-mono);
+            font-size: 7.5pt;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .skill-item:hover {
+            background: var(--color-black);
+            color: white;
+        }
+        
+        .skill-name {
+            letter-spacing: 0.02em;
+        }
+        
+        .skill-count {
+            background: var(--color-electric);
+            color: var(--color-black);
+            padding: 1mm 2mm;
+            font-size: 7pt;
+            font-weight: 700;
+            min-width: 8mm;
+            text-align: center;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--color-black);
+            color: var(--color-gray-light);
+            padding: 3mm 15mm;
+            font-family: var(--font-mono);
+            font-size: 6.5pt;
+            text-align: center;
+            border-top: 4px solid var(--color-electric);
+        }
+        
+        /* Print optimization */
+        @media print {
+            body { background: white; }
+            .page { box-shadow: none; }
+            * { animation: none !important; }
+            .header, .footer, .skill-item, .date-range {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+        @media screen {
+            body { padding: 20px 0; background: #f5f5f5; }
+            .page { box-shadow: 0 0 30px rgba(0,0,0,0.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="name">{{ personal_info.name }}</h1>
+                <p class="headline">{{ personal_info.headline }}</p>
+                <div class="contact-grid">
+                    {% if personal_info.email %}<div class="contact-item">{{ personal_info.email }}</div>{% endif %}
+                    {% if personal_info.phone %}<div class="contact-item">{{ personal_info.phone }}</div>{% endif %}
+                    {% if personal_info.location %}<div class="contact-item">{{ personal_info.location }}</div>{% endif %}
+                    {% if personal_info.linkedin_url %}<div class="contact-item">{{ personal_info.linkedin_url }}</div>{% endif %}
+                </div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="main-column">
+                {% if personal_info.summary %}
+                <div class="summary">{{ personal_info.summary }}</div>
+                {% endif %}
+                
+                {% if experiences %}
+                <section class="section">
+                    <h2 class="section-title">Expérience</h2>
+                    {% for exp in experiences %}
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <h3 class="item-title">{{ exp.title }}</h3>
+                            <p class="item-subtitle">{{ exp.company }}</p>
+                            <div class="item-meta">
+                                <span class="date-range {% if exp.is_current %}current-badge{% endif %}">
+                                    {{ exp.start_date }} → {{ exp.end_date }}
+                                </span>
+                                {% if exp.location %}<span>{{ exp.location }}</span>{% endif %}
+                            </div>
+                        </div>
+                        {% if exp.description %}<p class="item-description">{{ exp.description }}</p>{% endif %}
+                    </div>
+                    {% endfor %}
+                </section>
+                {% endif %}
+                
+                {% if education %}
+                <section class="section">
+                    <h2 class="section-title">Formation</h2>
+                    {% for edu in education %}
+                    <div class="education-item">
+                        <h3 class="item-title">{{ edu.degree }}{% if edu.field %} - {{ edu.field }}{% endif %}</h3>
+                        <p class="item-subtitle">{{ edu.school }}</p>
+                        <div class="item-meta">
+                            <span class="date-range">{{ edu.start_date }} → {{ edu.end_date }}</span>
+                        </div>
+                        {% if edu.description %}<p class="item-description">{{ edu.description }}</p>{% endif %}
+                    </div>
+                    {% endfor %}
+                </section>
+                {% endif %}
+            </div>
+            
+            <aside class="sidebar">
+                {% if skills %}
+                <section class="section">
+                    <h2 class="section-title">Skills</h2>
+                    <div class="skills-grid">
+                        {% for skill in skills[:25] %}
+                        <div class="skill-item">
+                            <span class="skill-name">{{ skill.name }}</span>
+                            {% if skill.endorsements > 0 %}
+                            <span class="skill-count">{{ skill.endorsements }}</span>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+                {% endif %}
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

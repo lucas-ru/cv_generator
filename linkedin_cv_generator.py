@@ -237,7 +237,7 @@ class LinkedInCVGenerator:
 
         return data
     
-    def generate_cv(self, data: Dict, output_path: str = "cv.html") -> str:
+    def generate_cv(self, choix: str, data: Dict, output_path: str = "cv.html") -> str:
         """
         Génère le CV HTML à partir des données
         
@@ -248,7 +248,7 @@ class LinkedInCVGenerator:
         Returns:
             Chemin du fichier généré
         """
-        template = self.env.get_template('cv_template.html')
+        template = self.env.get_template(f'cv_template_{choix}.html')
         html_content = template.render(**data)
         
         with open(output_path, 'w', encoding='utf-8') as f:
@@ -256,7 +256,7 @@ class LinkedInCVGenerator:
         
         return output_path
     
-    def generate_from_mock_data(self, output_path: str = "cv.html") -> str:
+    def generate_from_mock_data(self, choix: str, output_path: str = "cv.html") -> str:
         """
         Génère un CV à partir de données de démonstration
         Utile pour tester le template
@@ -341,7 +341,7 @@ class LinkedInCVGenerator:
             'generated_date': datetime.now().strftime('%d/%m/%Y')
         }
         
-        return self.generate_cv(mock_data, output_path)
+        return self.generate_cv(choix, mock_data, output_path)
 
 
 def main():
@@ -354,6 +354,23 @@ def main():
     print("\n⚠️  NOTE IMPORTANTE:")
     print("L'API LinkedIn officielle n'est plus accessible pour les profils personnels.")
     print("Choisissez l'une des méthodes ci-dessous pour créer votre CV.\n")
+
+    print("💡 CONSEIL:")
+    print("   - Pour un CV professionnel, utilisez l'option 1 (saisie interactive)")
+    print("   - Pour un CV rapide, utilisez l'option 4 (données de démonstration)")
+
+    print("\nVous avez le choix du template.")
+    print("  1. Design épuré et moderne (par défaut)")
+    print("  2. Minimal brutaliste, typographie géométrique, noir/blanc/bleu électrique")
+    print("  3. Moderne premium, gradients subtils, vert émeraude/gris anthracite")
+    print("  4. Layout asymétrique, serif élégant, bordeaux/beige/or")
+
+    type_template = input("\nVotre choix (1-4): ").strip()
+
+    if type_template not in ['1', '2', '3', '4']:
+        print("Choix de template invalide, utilisation du template par défaut (1).")
+        type_template = '1'
+    
     
     print("OPTIONS DISPONIBLES:")
     print("  1. Saisie interactive (Recommandé)")
@@ -369,7 +386,7 @@ def main():
         print("\n📝 Vous allez créer votre CV de manière interactive...")
         data = generator.generate_from_manual_input("./data/data.json")
         if data:
-            output_file = generator.generate_cv(data, "./outputs/cv.html")
+            output_file = generator.generate_cv(choix, data, "./outputs/cv.html")
             print(f"\n✅ CV généré avec succès: {output_file}")
             print("\n💡 Pour l'exporter en PDF:")
             print("   1. Ouvrez cv.html dans Chrome")
@@ -389,7 +406,7 @@ def main():
         if os.path.exists(export_path):
             data = generator.parse_linkedin_export(export_path)
             if data:
-                output_file = generator.generate_cv(data, "./outputs/cv.html")
+                output_file = generator.generate_cv(type_template, data, "./outputs/cv.html")
                 print(f"\n✅ CV généré avec succès: {output_file}")
         else:
             print(f"❌ Le dossier '{export_path}' n'existe pas.")
@@ -399,7 +416,7 @@ def main():
         export_path = input("Chemin vers le dossier extrait: ").strip()
         if os.path.exists(export_path):
             with open(export_path, encoding='utf-8') as json_data:
-                output_file = generator.generate_cv(json.load(json_data), "./outputs/cv.html")
+                output_file = generator.generate_cv(type_template, json.load(json_data), "./outputs/cv.html")
         print(f"✅ CV de démo généré: {output_file}")
         print("\n💡 Vous pouvez maintenant:")
         print("   - Ouvrir le CV et le modifier manuellement")
@@ -407,7 +424,7 @@ def main():
     elif choice == '4':
         # Données de démonstration
         print("\n🎯 Génération avec données de démonstration...")
-        output_file = generator.generate_from_mock_data("./outputs/cv.html")
+        output_file = generator.generate_from_mock_data(type_template,"./outputs/cv.html")
         print(f"✅ CV de démo généré: {output_file}")
         print("\n💡 Vous pouvez maintenant:")
         print("   - Ouvrir le CV et le modifier manuellement")

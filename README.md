@@ -2,11 +2,16 @@
 
 Un générateur de CV élégant et professionnel qui transforme vos données LinkedIn en un magnifique document HTML/CSS optimisé pour le format A4.
 
-## ⚠️ Important - API LinkedIn
+## 📋 Vue d'Ensemble des templates
 
-**L'API LinkedIn officielle n'est plus accessible pour les profils personnels.** Les anciennes routes API v2 sont obsolètes et nécessitent maintenant une application d'entreprise approuvée par LinkedIn.
+| Template | Style | Palette | Typographie | Usage Recommandé |
+|----------|-------|---------|-------------|------------------|
+| **Default** | Artistique, contemporain | Tons terre et bleu marine | Crimson Pro + DM Sans | Polyvalent |
+| **Swiss Precision** | Brutaliste minimal | Noir/Blanc/Bleu électrique | IBM Plex Mono + Work Sans | Tech, Engineering, Startup |
+| **Tech Corporate** | Moderne premium | Vert émeraude/Gris anthracite | Sora + Inter | Corporate, Finance, Consulting |
+| **Editorial Magazine** | Élégant asymétrique | Bordeaux/Beige/Or | Playfair Display + Lato | Créatif, Direction, Marketing |
 
-Pour les profils personnels, voici les **3 méthodes disponibles** :
+Pour les profils personnels, voici les **4 méthodes disponibles** :
 
 ## ✨ Méthodes Disponibles
 
@@ -116,36 +121,53 @@ linkedin-cv-generator/
 ├── QUICKSTART.md              # Guide de démarrage rapide
 ├── EXPORT_PDF.md              # Guide d'export PDF détaillé
 │
-└── templates/
-    └── cv_template.html        # Template Jinja2 HTML/CSS optimisé A4
-└── data/
+├── templates/
+│   ├── cv_template_1.html        # Template Jinja2 HTML/CSS optimisé A4
+│   ├── cv_template_2.html        # Template Jinja2 HTML/CSS optimisé A4
+│   ├── cv_template_3.html        # Template Jinja2 HTML/CSS optimisé A4
+│   └── cv_template_4.html        # Template Jinja2 HTML/CSS optimisé A4
+├── data/
 └── outputs/
 ```
 
-## 🎯 Fonctionnalités du Template
+## 📊 Comparaison Rapide des templates
 
-### Design Elements
+| Critère | Original | Swiss | Corporate | Editorial |
+|---------|----------|-------|-----------|-----------|
+| **Formalité** | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **Créativité** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Lisibilité** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **Modernité** | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ |
+| **Élégance** | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **Audace** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐ |
 
-- **Header sophistiqué** : Fond dégradé avec motif géométrique subtil
-- **Typographie raffinée** : Combinaison de polices serif/sans-serif
-- **Éléments décoratifs** : Formes abstraites en arrière-plan
-- **Badges de dates** : Mise en valeur des périodes professionnelles
-- **Grid moderne** : Layout à deux colonnes pour organisation optimale
-- **Animations** : Fade-in et slide-in au chargement
+### 🎯 Guide de Sélection
 
-### Sections Incluses
+**Choisissez ORIGINAL si :**
+- Vous voulez un CV moderne sans être radical
+- Candidature polyvalente (plusieurs secteurs)
+- Équilibre créativité/professionnalisme
 
-1. **En-tête** : Nom, titre professionnel, coordonnées
-2. **Résumé** : Présentation professionnelle
-3. **Expériences** : Historique professionnel détaillé
-4. **Formation** : Parcours académique
-5. **Compétences** : Skills avec nombre d'endorsements
+**Choisissez SWISS si :**
+- Secteur tech, engineering, startup
+- Vous voulez être inoubliable
+- Culture d'entreprise innovante
+
+**Choisissez CORPORATE si :**
+- Grande entreprise, multinationale
+- Finance, consulting, business
+- Besoin de crédibilité maximale
+
+**Choisissez EDITORIAL si :**
+- Poste de direction ou créatif
+- Luxe, mode, communication
+- Vous valorisez l'esthétique premium
 
 ## 🎯 Personnalisation
 
 ### Changer les couleurs
 
-Éditez `templates/cv_template.html` :
+Éditez `templates/*` :
 
 ```css
 :root {
@@ -170,7 +192,7 @@ linkedin-cv-generator/
 Dans le template HTML (ligne ~380) :
 
 ```html
-{% for skill in skills[:25] %}  <!-- Limiter à 10 compétences -->
+{% for skill in skills[:25] %}  <!-- Limiter à 25 compétences -->
 ```
 
 ## 📝 Licence
@@ -202,11 +224,12 @@ Pour toute question ou problème :
 ✅ **Format A4 exact** (210mm × 297mm)  
 ✅ **Export PDF optimisé** avec préservation des couleurs  
 ✅ **Template élégant** avec design professionnel  
+✅ **Choix de template** pour une gamme plus large
 ✅ **Responsive** pour tous les écrans  
 
 ## 💡 Améliorations Futures
 
-- [ ] Templates multiples au choix (moderne, classique, créatif)
+- [X] Templates multiples au choix (moderne, classique, créatif)
 - [ ] Thèmes de couleurs prédéfinis
 - [ ] Support multilingue (EN, ES, DE)
 - [ ] Export direct en PDF depuis Python
