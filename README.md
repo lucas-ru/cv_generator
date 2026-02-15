@@ -2,6 +2,12 @@
 
 Un générateur de CV élégant et professionnel qui transforme vos données LinkedIn en un magnifique document HTML/CSS optimisé pour le format A4.
 
+## 🔥 Prerequis
+
+Avoir python et git installé sur son PC
+
+Exécuter le fichier python avec l'invité de commande au niveau du projet (celui ci comporte des chemins relatifs)
+
 ## 📋 Vue d'Ensemble des templates
 
 | Template | Style | Palette | Typographie | Usage Recommandé |
