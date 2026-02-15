@@ -386,7 +386,7 @@ def main():
         print("\n📝 Vous allez créer votre CV de manière interactive...")
         data = generator.generate_from_manual_input("./data/data.json")
         if data:
-            output_file = generator.generate_cv(choix, data, "./outputs/cv.html")
+            output_file = generator.generate_cv(choice, data, "./outputs/cv.html")
             print(f"\n✅ CV généré avec succès: {output_file}")
             print("\n💡 Pour l'exporter en PDF:")
             print("   1. Ouvrez cv.html dans Chrome")
