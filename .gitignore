@@ -1,0 +1,12 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Project specific
+__pycache__/
+data/*
+outputs/*
+tests/__pycache__/
