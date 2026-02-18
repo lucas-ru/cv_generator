@@ -8,6 +8,8 @@ Avoir python et git installé sur son PC
 
 Exécuter le fichier python avec l'invité de commande au niveau du projet (celui ci comporte des chemins relatifs)
 
+Installer les dépendances dans le requirements.txt
+
 ## 📋 Vue d'Ensemble des templates
 
 | Template | Style | Palette | Typographie | Usage Recommandé |
@@ -198,7 +200,7 @@ linkedin-cv-generator/
 Dans le template HTML (ligne ~380) :
 
 ```html
-{% for skill in skills[:25] %}  <!-- Limiter à 25 compétences -->
+{% for skill in skills[:18] %}  <!-- Limiter à 18 compétences -->
 ```
 
 ## 📝 Licence
