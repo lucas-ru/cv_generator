@@ -9,6 +9,11 @@ from typing import Dict, List, Optional
 from jinja2 import Environment, FileSystemLoader
 import json
 
+ROOT = os.path.dirname(__file__)
+TEMPLATES = os.path.join(ROOT, 'templates')
+OUTPUTS = os.path.join(ROOT, 'outputs')
+DATA = os.path.join(ROOT, 'data')
+
 class LinkedInCVGenerator:
     """Générateur de CV à partir des données LinkedIn"""
     
@@ -44,7 +49,8 @@ class LinkedInCVGenerator:
             'personal_info': {},
             'experiences': [],
             'education': [],
-            'skills': []
+            'skills': [],
+            'hobbies': []
         }
         
         try:
@@ -165,6 +171,7 @@ class LinkedInCVGenerator:
             'experiences': [],
             'education': [],
             'skills': [],
+            'hobbies': [],
             'generated_date': datetime.now().strftime('%d/%m/%Y')
         }
         
@@ -178,6 +185,26 @@ class LinkedInCVGenerator:
         data['personal_info']['location'] = input("Localisation: ").strip()
         data['personal_info']['linkedin_url'] = input("URL LinkedIn (ex: linkedin.com/in/lucas-plume): ").strip()
         data['personal_info']['summary'] = input("Résumé professionnel (2-3 phrases): ").strip()
+        # Lire et normaliser le chemin de la photo pour l'utiliser en HTML
+        photo_input = input("Chemin vers la photo (optionnel): ").strip()
+        if photo_input:
+            # Permet d'expanser ~ et les variables d'environnement
+            photo_expanded = os.path.expanduser(os.path.expandvars(photo_input))
+            # Normaliser les séparateurs en slash pour HTML
+            photo_normalized = photo_expanded.replace('\\', '/')
+            # Si chemin absolu, convertir en URI file:/// pour que le navigateur le charge
+            try:
+                from pathlib import Path
+                p = Path(photo_expanded)
+                if p.is_absolute():
+                    photo_url = p.as_uri()
+                else:
+                    photo_url = photo_normalized
+            except Exception:
+                photo_url = photo_normalized
+        else:
+            photo_url = ''
+        data['personal_info']['photo'] = photo_url
         
         # Expériences
         print("\n💼 EXPÉRIENCES PROFESSIONNELLES")
@@ -229,6 +256,16 @@ class LinkedInCVGenerator:
                     'name': skill.strip(),
                     'endorsements': 0
                 })
+
+        # Hobbies (optionnel)
+        print("\n🎲 HOBBIES (OPTIONNEL)")
+        print("Entrez vos hobbies séparés par des virgules (laisser vide si aucun):")
+        hobbies_input = input("Hobbies: ").strip()
+        if hobbies_input:
+            for h in hobbies_input.split(','):
+                item = h.strip()
+                if item:
+                    data['hobbies'].append(item)
         
         print("\n✅ Saisie terminée!")
 
@@ -275,7 +312,8 @@ class LinkedInCVGenerator:
                 'email': 'lucas.plume@example.com',
                 'phone': '+33 6 12 34 56 78',
                 'linkedin_url': 'linkedin.com/in/lucas-plume',
-                'summary': 'Data Scientist passionné avec 5 ans d\'expérience dans l\'analyse de données massives et le développement de modèles d\'apprentissage automatique. Spécialisé en NLP et Computer Vision, j\'accompagne les entreprises dans leur transformation data-driven.'
+                'summary': 'Data Scientist passionné avec 5 ans d\'expérience dans l\'analyse de données massives et le développement de modèles d\'apprentissage automatique. Spécialisé en NLP et Computer Vision, j\'accompagne les entreprises dans leur transformation data-driven.',
+                'photo': ''
             },
             'experiences': [
                 {
@@ -338,6 +376,7 @@ class LinkedInCVGenerator:
                 {'name': 'MLOps / MLflow', 'endorsements': 22},
                 {'name': 'Data Visualization (Tableau, Plotly)', 'endorsements': 20}
             ],
+            'hobbies': ['Photographie', 'Randonnée', 'Lecture'],
             'generated_date': datetime.now().strftime('%d/%m/%Y')
         }
         
@@ -346,7 +385,7 @@ class LinkedInCVGenerator:
 
 def main():
     """Fonction principale avec menu interactif"""
-    generator = LinkedInCVGenerator(template_dir="templates")
+    generator = LinkedInCVGenerator(template_dir=TEMPLATES)
     
     print("\n" + "="*70)
     print(" 🎨 GÉNÉRATEUR DE CV LINKEDIN - FORMAT A4")
@@ -384,9 +423,9 @@ def main():
     if choice == '1':
         # Saisie interactive
         print("\n📝 Vous allez créer votre CV de manière interactive...")
-        data = generator.generate_from_manual_input("./data/data.json")
+        data = generator.generate_from_manual_input(os.path.join(DATA, "data.json"))
         if data:
-            output_file = generator.generate_cv(choice, data, "./outputs/cv.html")
+            output_file = generator.generate_cv(choice, data, os.path.join(OUTPUTS, f"cv_{type_template}.html"))
             print(f"\n✅ CV généré avec succès: {output_file}")
             print("\n💡 Pour l'exporter en PDF:")
             print("   1. Ouvrez cv.html dans Chrome")
@@ -406,7 +445,7 @@ def main():
         if os.path.exists(export_path):
             data = generator.parse_linkedin_export(export_path)
             if data:
-                output_file = generator.generate_cv(type_template, data, "./outputs/cv.html")
+                output_file = generator.generate_cv(type_template, data, os.path.join(OUTPUTS, f"cv_{type_template}.html"))
                 print(f"\n✅ CV généré avec succès: {output_file}")
         else:
             print(f"❌ Le dossier '{export_path}' n'existe pas.")
@@ -416,7 +455,7 @@ def main():
         export_path = input("Chemin vers le dossier extrait: ").strip()
         if os.path.exists(export_path):
             with open(export_path, encoding='utf-8') as json_data:
-                output_file = generator.generate_cv(type_template, json.load(json_data), "./outputs/cv.html")
+                output_file = generator.generate_cv(type_template, json.load(json_data), os.path.join(OUTPUTS, f"cv_{type_template}.html"))
         print(f"✅ CV de démo généré: {output_file}")
         print("\n💡 Vous pouvez maintenant:")
         print("   - Ouvrir le CV et le modifier manuellement")
@@ -424,7 +463,7 @@ def main():
     elif choice == '4':
         # Données de démonstration
         print("\n🎯 Génération avec données de démonstration...")
-        output_file = generator.generate_from_mock_data(type_template,"./outputs/cv.html")
+        output_file = generator.generate_from_mock_data(type_template, os.path.join(OUTPUTS, f"cv_{type_template}.html"))
         print(f"✅ CV de démo généré: {output_file}")
         print("\n💡 Vous pouvez maintenant:")
         print("   - Ouvrir le CV et le modifier manuellement")

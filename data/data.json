@@ -6,7 +6,8 @@
         "phone": "0629398365",
         "location": "5 Avenue de gevrier 74960 Cran-Gevrier",
         "linkedin_url": "linkedin.com/in/lucas-plume",
-        "summary": "Actuellement en recherche de nouveaux challenges, je suis prêt à mettre ma curiosité, ma polyvalence et ma créativité au défi. Je suis quelqu'un de fiable et d'autonome, ce qui me permet de répondre à votre besoin avec clareté et minutie."
+        "summary": "Actuellement en recherche de nouveaux challenges, je suis prêt à mettre ma curiosité, ma polyvalence et ma créativité au défi. Je suis quelqu'un de fiable et d'autonome, ce qui me permet de répondre à votre besoin avec clareté et minutie.",
+        "photo": ""
     },
     "experiences": [
         {
@@ -165,5 +166,6 @@
             "endorsements": 0
         }
     ],
+    "hobbies": ["Gaming", "Développement", "Lecture", "Sport"],
     "generated_date": "14/02/2026"
 }
