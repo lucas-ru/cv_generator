@@ -8,5 +8,7 @@
 # Project specific
 __pycache__/
 data/*
+!data/.gitkeep
 outputs/*
+!outputs/.gitkeep
 tests/__pycache__/
