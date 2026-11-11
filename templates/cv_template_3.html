@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* TEMPLATE 2: TECH CORPORATE - Modern Premium */
+        /* TEMPLATE 3: TECH CORPORATE - Modern Premium */
         
         :root {
             --color-emerald: #047857;
@@ -42,11 +42,12 @@
         
         .page {
             width: 210mm;
-            height: 297mm;
+            min-height: 297mm;
             margin: 0 auto;
             background: white;
             position: relative;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
         
         /* Subtle gradient overlay */
@@ -65,7 +66,7 @@
         /* Header with gradient */
         .header {
             background: linear-gradient(135deg, var(--color-slate) 0%, var(--color-emerald-dark) 100%);
-            padding: 15mm 15mm 10mm 15mm;
+            padding: 10mm 15mm 7mm;
             position: relative;
             overflow: hidden;
         }
@@ -84,15 +85,31 @@
         .header-content {
             position: relative;
             z-index: 1;
-            display: flex;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-areas:
+                "identity"
+                "contacts";
             align-items: center;
-            justify-content: space-between;
+            gap: 3mm 6mm;
+        }
+
+        .header-content--with-photo {
+            grid-template-columns: minmax(0, 1fr) 24mm;
+            grid-template-areas:
+                "identity photo"
+                "contacts contacts";
+        }
+
+        .header-identity {
+            grid-area: identity;
+            min-width: 0;
         }
 
         .photo-container{
-            width: 100px;
-            height: 100px;
-            flex: 0 0 100px;
+            grid-area: photo;
+            width: 24mm;
+            height: 24mm;
             overflow: hidden;
             border-radius: 8px;
             display: flex;
@@ -100,7 +117,7 @@
             justify-content: center;
             background: #ffffff;
             box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-            margin-right: 5mm;
+            justify-self: end;
         }
 
         .photo-container img{
@@ -113,11 +130,11 @@
         
         .name {
             font-family: var(--font-display);
-            font-size: 28pt;
+            font-size: 25pt;
             font-weight: 700;
             color: white;
             letter-spacing: -0.02em;
-            margin-bottom: 3mm;
+            margin-bottom: 2mm;
             line-height: 1.1;
         }
         
@@ -126,22 +143,27 @@
             font-size: 10pt;
             font-weight: 400;
             color: var(--color-emerald-light);
-            margin-bottom: 6mm;
+            margin-bottom: 0;
             letter-spacing: 0.01em;
         }
         
         .contact-bar {
+            grid-area: contacts;
             display: flex;
             flex-wrap: wrap;
-            gap: 5mm;
-            font-size: 7.5pt;
+            gap: 2mm 6mm;
+            padding-top: 2mm;
+            border-top: 1px solid rgba(255, 255, 255, 0.28);
+            font-size: 8pt;
             color: rgba(255, 255, 255, 0.85);
+            font-style: normal;
         }
         
         .contact-item {
             display: flex;
             align-items: center;
             gap: 2mm;
+            overflow-wrap: anywhere;
         }
         
         .contact-item::before {
@@ -156,18 +178,19 @@
         .content {
             position: relative;
             z-index: 1;
-            padding: 2mm 5mm;
+            flex: 1;
+            padding: 4mm 5mm 12mm;
         }
         
         .layout {
             display: grid;
-            grid-template-columns: 1fr 70mm;
-            gap: 10mm;
+            grid-template-columns: minmax(0, 1fr) 66mm;
+            gap: 7mm;
         }
         
         /* Section styling */
         .section {
-            margin-bottom: 8mm;
+            margin-bottom: 4mm;
         }
         
         .section-title {
@@ -175,8 +198,8 @@
             font-size: 12pt;
             font-weight: 700;
             color: var(--color-emerald);
-            margin-bottom: 5mm;
-            padding-bottom: 2mm;
+            margin-bottom: 3mm;
+            padding-bottom: 1.5mm;
             border-bottom: 2px solid var(--color-emerald);
             display: inline-block;
             min-width: 40mm;
@@ -191,14 +214,14 @@
             background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
             border-radius: 8px;
             border-left: 4px solid var(--color-emerald);
-            margin-bottom: 2mm;
+            margin-bottom: 3mm;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
         
         /* Experience items */
         .experience-item,
         .education-item {
-            padding-bottom: 5mm;
+            padding-bottom: 3mm;
             position: relative;
         }
 
@@ -278,8 +301,8 @@
         }
         
         .item-description {
-            font-size: 7pt;
-            line-height: 1.6;
+            font-size: 7.5pt;
+            line-height: 1.45;
             color: var(--color-slate-light);
         }
         
@@ -360,27 +383,13 @@
             font-weight: 600;
         }
         
-        /* Footer */
-        .footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(135deg, var(--color-slate) 0%, var(--color-emerald-dark) 100%);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 3mm 15mm;
-            font-size: 7pt;
-            text-align: center;
-            letter-spacing: 0.05em;
-        }
-        
         /* Print optimization */
         @media print {
             body { background: white; }
             .page { box-shadow: none; }
             .page::before { opacity: 0.5; }
             * { animation: none !important; }
-            .header, .footer, .current-badge, .skill-badge {
+            .header, .current-badge, .skill-badge {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
@@ -395,22 +404,23 @@
 <body>
     <div class="page">
         <header class="header">
-            <div class="header-content">
-                <div>
+            <div class="header-content{% if personal_info.photo %} header-content--with-photo{% endif %}">
+                <div class="header-identity">
                     <h1 class="name">{{ personal_info.name }}</h1>
+                    {% if personal_info.headline %}
                     <p class="headline">{{ personal_info.headline }}</p>
+                    {% endif %}
                 </div>
                 {% if personal_info.photo %}
                 <div class="photo-container">
                     <img src="{{ personal_info.photo }}" alt="Photo de {{ personal_info.name }}"/>
                 </div>
                 {% endif %}
-                <div class="contact-bar">
-                    {% if personal_info.email %}<div class="contact-item">{{ personal_info.email }}</div>{% endif %}
-                    {% if personal_info.phone %}<div class="contact-item">{{ personal_info.phone }}</div>{% endif %}
-                    {% if personal_info.location %}<div class="contact-item">{{ personal_info.location }}</div>{% endif %}
-                    {% if personal_info.linkedin_url %}<div class="contact-item">{{ personal_info.linkedin_url }}</div>{% endif %}
-                </div>
+                <address class="contact-bar">
+                    {% if personal_info.email %}<span class="contact-item">{{ personal_info.email }}</span>{% endif %}
+                    {% if personal_info.phone %}<span class="contact-item">{{ personal_info.phone }}</span>{% endif %}
+                    {% if personal_info.location %}<span class="contact-item">{{ personal_info.location }}</span>{% endif %}
+                </address>
             </div>
         </header>
         
