@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "issues": [
+    {
+      "key": "cv-orchestrator-no-post-generation-feedback",
+      "agent": "CV Orchestrator",
+      "summary": "Le workflow terminait après la génération et le contrôle du HTML sans solliciter explicitement l'avis de l'utilisateur ; l'orchestrateur demande maintenant une revue et traite les corrections avant de clôturer.",
+      "workflow_ids": [
+        "cv-20261111-1820-29",
+        "cv-20261111-1843-46"
+      ],
+      "status": "improved"
+    },
+    {
+      "key": "cv-print-render-diverges-from-template",
+      "agent": "CV HTML Builder",
+      "summary": "Les styles d'impression du HTML final supprimaient le bandeau de marque du template UX. La source template est maintenant contrôlée par une comparaison Playwright HTML/PDF.",
+      "workflow_ids": [
+        "cv-20261111-1911-36"
+      ],
+      "status": "observing"
+    },
+    {
+      "key": "cv-experience-marker-spacing",
+      "agent": "CV UX Designer",
+      "summary": "Les marqueurs visuels des expériences manquaient d'espace avec leurs intitulés. Le contrôle E2E mesure désormais leur écart minimal.",
+      "workflow_ids": [
+        "cv-20261111-1911-36"
+      ],
+      "status": "observing"
+    }
+  ]
+}

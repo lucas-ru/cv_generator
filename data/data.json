@@ -5,19 +5,18 @@
         "email": "lucas.ru74@gmail.com",
         "phone": "0629398365",
         "location": "5 Avenue de gevrier 74960 Cran-Gevrier",
-        "linkedin_url": "linkedin.com/in/lucas-plume",
         "summary": "Actuellement en recherche de nouveaux challenges, je suis prêt à mettre ma curiosité, ma polyvalence et ma créativité au défi. Je suis quelqu'un de fiable et d'autonome, ce qui me permet de répondre à votre besoin avec clareté et minutie.",
-        "photo": "C:\\Users\\lucas\\Pictures\\Moi.jpg"
+        "photo": "C:\\Users\\lucas\\Pictures\\Moi\\link.jpg"
     },
     "experiences": [
         {
-            "title": "Développeur web",
-            "company": "Wevalgo",
-            "location": "Chavanod, Auvergne-Rhône-Alpes, France",
-            "start_date": "Avril 2020",
-            "end_date": "Septembre 2021",
-            "is_current": false,
-            "description": "Création d’une nouvelle fonctionnalité pour le site en ligne. Mise en place d’unsystème de version pour la nouvelle fonctionnalité. Refonte graphique du siteinternet. Correction de bug existant."
+            "title": "Ingénieur DevOps",
+            "company": "Crédit Agricole Group Infrastructure Platform",
+            "location": "Annecy, Auvergne-Rhône-Alpes, France",
+            "start_date": "Octobre 2023",
+            "end_date": "Présent",
+            "is_current": true,
+            "description": "Gestion de la production. Création de modèle CI/CD. Automatisation de processus métier. Développement d'outils internes. Mise en place de norme pour l'observabilité dans le groupe."
         },
         {
             "title": "Développeur",
@@ -29,14 +28,14 @@
             "description": "Conception et réalisation d'un processus de montée de version d'agent Dynatrace. Mise en place de test de non-régression. Application d'un process à l'échelle. Correction de bugs liés aux automatismes existants"
         },
         {
-            "title": "Ingénieur DevOps",
-            "company": "Crédit Agricole Group Infrastructure Platform",
-            "location": "Annecy, Auvergne-Rhône-Alpes, France",
-            "start_date": "Octobre 2023",
-            "end_date": "Présent",
-            "is_current": true,
-            "description": "Gestion de la production. Création de modèle CI/CD. Automatisation de processus métier. Développement d'outils internes. Mise en place de norme pour l'observabilité dans le groupe."
-        }
+            "title": "Développeur web",
+            "company": "Wevalgo",
+            "location": "Chavanod, Auvergne-Rhône-Alpes, France",
+            "start_date": "Avril 2020",
+            "end_date": "Septembre 2021",
+            "is_current": false,
+            "description": "Création d’une nouvelle fonctionnalité pour le site en ligne. Mise en place d’unsystème de version pour la nouvelle fonctionnalité. Refonte graphique du siteinternet. Correction de bug existant."
+        }        
     ],
     "education": [
         {
@@ -74,6 +73,10 @@
             "endorsements": 0
         },
         {
+            "name": "Javascript",
+            "endorsements": 0
+        },
+        {
             "name": "ServiceNow",
             "endorsements": 0
         },
@@ -86,31 +89,15 @@
             "endorsements": 0
         },
         {
-            "name": "Node",
-            "endorsements": 0
-        },
-        {
-            "name": "Vue",
-            "endorsements": 0
-        },
-        {
-            "name": "Django",
-            "endorsements": 0
-        },
-        {
             "name": "Grafana",
             "endorsements": 0
         },
         {
-            "name": "Prometheus",
+            "name": "Dynatrace",
             "endorsements": 0
         },
         {
             "name": "ELK",
-            "endorsements": 0
-        },
-        {
-            "name": "Gestion de production",
             "endorsements": 0
         },
         {
@@ -126,19 +113,7 @@
             "endorsements": 0
         },
         {
-            "name": "DevOps",
-            "endorsements": 0
-        },
-        {
             "name": "Administration Système",
-            "endorsements": 0
-        },
-        {
-            "name": "Gestion de projet",
-            "endorsements": 0
-        },
-        {
-            "name": "XLRelease",
             "endorsements": 0
         },
         {
@@ -154,11 +129,7 @@
             "endorsements": 0
         },
         {
-            "name": "Javascript",
-            "endorsements": 0
-        },
-        {
-            "name": "Dynatrace",
+            "name": "Gestion de projet",
             "endorsements": 0
         },
         {

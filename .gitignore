@@ -1,14 +1,39 @@
-# IDE
+# Editors and operating systems
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.DS_Store
+Thumbs.db
 
-# Project specific
+# Python caches and build artifacts
 __pycache__/
-data/*
-!data/.gitkeep
-outputs/*
-!outputs/.gitkeep
-tests/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Local Python environments
+.venv/
+venv/
+
+# Local/private profile data and generated CVs
+/data/*
+!/data/.gitkeep
+/outputs/*
+!/outputs/.gitkeep
+/.cv-work/
+
+# Local environment settings and logs
+.env
+.env.*
+!.env.example
+*.log
