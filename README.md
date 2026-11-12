@@ -22,7 +22,8 @@ python -m playwright install chromium
 - `tests/` : tests unitaires `pytest` et tests E2E Playwright.
 - `templates/` : modèles HTML intégrés.
 - `data/` : données locales de profil, PDF et photos ; leur contenu est ignoré par Git, sauf `.gitkeep`.
-- `outputs/` : CV générés ; leur contenu est ignoré par Git, sauf `.gitkeep`.
+- `outputs/` : CV HTML et documents DOCX finaux ; leur contenu est ignoré par Git, sauf `.gitkeep`.
+- `.cv-work/` : fichiers intermédiaires du workflow, dont le Markdown de la lettre de motivation.
 - `.github/agents/` et `.github/skills/` : agents et instructions de travail Copilot.
 
 ## Utiliser le flux agentique
@@ -33,8 +34,9 @@ python -m playwright install chromium
 4. L'orchestrateur cherche automatiquement un export LinkedIn PDF dans `data/`. S'il existe, l'importeur vérifie qu'il suit le format attendu et extrait ses informations. Si le PDF est absent ou invalide, il utilise `data.json` s'il existe, sinon l'unique JSON présent dans le dossier. En cas de plusieurs JSON sans `data.json`, l'orchestrateur demande lequel choisir.
 5. L'orchestrateur coordonne l'analyse de l'offre, l'import du profil, la recherche d'identité visuelle, le design, la sélection d'expériences pertinentes, la relecture dans la langue de l'offre et le contrôle ATS. Les expériences sans rapport avec le poste sont écartées, sauf si leur description prouve une compétence transférable utile.
 6. Après génération du HTML, `CV Playwright Reviewer` compare son rendu au template UX, exporte un PDF A4 avec les graphiques d'arrière-plan et vérifie le contenu et les pages blanches. `CV Workflow Improver` accepte ou rejette le rapport avant sa présentation.
-7. Vérifier les informations et le rendu A4. Après génération et validation Playwright, l'orchestrateur demande un retour sur le contenu, le résumé, les compétences, les expériences, le design comparé au template et la mise en page. Indiquez vos corrections dans le chat ; l'agent régénère le HTML et relance les vérifications. Si tout vous convient, confirmez-le explicitement.
-8. Ouvrir le HTML dans un navigateur et faire **Imprimer > Enregistrer au format PDF**.
+7. Après acceptation du CV, `Cover Letter Writer` crée une lettre dans la langue commune de l'offre et du CV, avec le skill français ou anglais correspondant. Elle comprend les coordonnées de l'expéditeur et du destinataire disponibles, la date, l'objet, une salutation, trois paragraphes ciblés, une formule de clôture et la signature. Le Markdown de travail est conservé dans `.cv-work/cover_letter.md` ; seul le document Word `outputs/lettre-motivation.docx` est placé dans `outputs/`. Vous pouvez l'ouvrir dans Word ou LibreOffice et l'exporter en PDF.
+8. Vérifier les informations et le rendu A4, ainsi que la lettre de motivation. Après génération et validation Playwright, l'orchestrateur demande un retour sur le contenu, le résumé, les compétences, les expériences, le design comparé au template, la mise en page et la lettre. Indiquez vos corrections dans le chat ; l'agent régénère le HTML et relance les vérifications si le CV est modifié. Si tout vous convient, confirmez-le explicitement.
+9. Ouvrir le HTML dans un navigateur et faire **Imprimer > Enregistrer au format PDF**.
 
 Les agents échangent leurs fichiers intermédiaires dans `.cv-work/`, notamment `.cv-work/linkedin_profile.json`. L'importeur écrit le résultat du PDF reconnu ou du JSON de repli et relève les noms des photos locales candidates. Quand un PDF est valide, ses champs absents restent vides et ne sont pas complétés par un autre JSON. Pour la photo, la seule source est une image `.png`, `.jpg` ou `.jpeg` présente dans `data/` : le PDF LinkedIn ne contient pas de photo exploitable pour ce flux. Si aucune photo locale n'existe, le template est composé sans image ni espace vide réservé. S'il y a plusieurs photos locales, indiquez celle à utiliser. Les templates de [templates/](./templates/) sont les bases de design lorsque la recherche de marque n'aboutit pas.
 
@@ -87,6 +89,12 @@ python .\scripts\cv_generator.py --data .\.cv-work\cv_profile.json --photo .\dat
 
 La photo est intégrée au HTML pour éviter les liens locaux cassés lors de son déplacement.
 
+Pour convertir manuellement une lettre Markdown en document Word après correction :
+
+```powershell
+python .\scripts\cover_letter_exporter.py --input .\.cv-work\cover_letter.md --output .\outputs\lettre-motivation.docx
+```
+
 Le JSON utilise la structure déjà présente dans `data/data.json` (`personal_info`, `experiences`, `education`, `skills`, `hobbies`). Les éléments d'expérience restent factuels ; seul le titre ciblé, le résumé et l'ordre des éléments peuvent être adaptés sans inventer d'expérience ni de compétence.
 
 ## Agents
@@ -100,9 +108,10 @@ Le JSON utilise la structure déjà présente dans `data/data.json` (`personal_i
 - `cv-html-builder.agent.md` : expert Python/pytest, adapte les données, génère le HTML et teste les modifications du code ou du template.
 - `cv-playwright-reviewer.agent.md` : vérifie après génération le HTML, la correspondance visuelle avec le template et l'export PDF A4.
 - `cv-copy-editor.agent.md` : relit le profil et le template selon la langue réelle de l'offre.
+- `cover-letter-writer.agent.md` : rédige après validation du CV une lettre en trois parties, avec le skill de rédaction français ou anglais correspondant, puis génère le DOCX avec `scripts/cover_letter_exporter.py`.
 - `ats-keyword-reviewer.agent.md` : repère les mots-clés pertinents à faire apparaître explicitement et honnêtement.
 
-Skills du projet : [qualité Python](./.github/skills/python-quality/SKILL.md) et [workflow pytest](./.github/skills/pytest-workflow/SKILL.md) s'appliquent aux scripts `scripts/cv_generator.py` et `scripts/linkedin_pdf_importer.py` ; [Playwright CV E2E](./.github/skills/cv-playwright-e2e/SKILL.md) définit le contrôle du HTML, de la comparaison au template et du PDF. Les autres skills couvrent le [design de fallback](./.github/skills/cv-template-fallback/SKILL.md), la [mise en page A4](./.github/skills/cv-print-layout/SKILL.md), la [rédaction française](./.github/skills/french-copy-editing/SKILL.md) et la [rédaction anglaise](./.github/skills/english-copy-editing/SKILL.md). [CV Workflow Improver](./.github/agents/cv-workflow-improver.agent.md) transmet les leçons issues de problèmes confirmés et récurrents à l'orchestrateur et aux agents concernés.
+Skills du projet : [qualité Python](./.github/skills/python-quality/SKILL.md) et [workflow pytest](./.github/skills/pytest-workflow/SKILL.md) s'appliquent aux scripts `scripts/cv_generator.py`, `scripts/linkedin_pdf_importer.py` et `scripts/cover_letter_exporter.py`. `CV HTML Builder` les applique au code du générateur de CV et de l'importeur ; `Cover Letter Writer` les applique à l'export DOCX qu'il exécute. [Playwright CV E2E](./.github/skills/cv-playwright-e2e/SKILL.md) définit le contrôle du HTML, de la comparaison au template et du PDF. Les autres skills couvrent le [design de fallback](./.github/skills/cv-template-fallback/SKILL.md), la [mise en page A4](./.github/skills/cv-print-layout/SKILL.md), la [rédaction française](./.github/skills/french-copy-editing/SKILL.md) et la [rédaction anglaise](./.github/skills/english-copy-editing/SKILL.md). [CV Workflow Improver](./.github/agents/cv-workflow-improver.agent.md) transmet les leçons issues de problèmes confirmés et récurrents à l'orchestrateur et aux agents concernés.
 
 Le registre [agent-feedback.json](./.github/agent-feedback.json) conserve uniquement des résumés techniques anonymisés ; il ne doit jamais contenir de données de profil ou de contenu d'offre.
 

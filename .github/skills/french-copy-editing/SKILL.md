@@ -35,4 +35,6 @@ Ne pas ajouter d'impact chiffré, de technologie ou de responsabilité managéri
 
 ## Sortie
 
-Réviser les champs textuels dans `.cv-work/cv_profile.json` et les textes d'interface visibles dans `.cv-work/cv_template.html`. Signaler à l'agent HTML Builder que les fichiers sont prêts à rendre et résumer les changements rédactionnels importants.
+Pour une tâche de CV, réviser les champs textuels dans `.cv-work/cv_profile.json` et les textes d'interface visibles dans `.cv-work/cv_template.html`. Signaler à l'agent HTML Builder que les fichiers sont prêts à rendre et résumer les changements rédactionnels importants.
+
+Lorsque Cover Letter Writer confie une lettre, appliquer les mêmes règles de langue et de fidélité aux faits au fichier de lettre indiqué. Préserver sa structure en trois parties, ne modifier que la lettre et la renvoyer à l'orchestrateur pour relecture ; ne pas modifier le profil ni le template du CV dans le cadre de cette tâche.
