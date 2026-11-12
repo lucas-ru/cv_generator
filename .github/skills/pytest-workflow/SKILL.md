@@ -5,7 +5,7 @@ description: Design and run behavior-focused pytest coverage for changes to CV g
 
 # pytest workflow for CV Generator
 
-Use this skill whenever changing Python behavior, HTML templates, CLI behavior, or the data passed between them.
+Use this skill whenever changing Python behavior, HTML templates, CLI behavior, DOCX export, or the data passed between them.
 
 ## Test-first workflow
 
@@ -54,6 +54,15 @@ When modifying `scripts/linkedin_pdf_importer.py`:
 5. Test photo discovery using temporary PNG/JPG/JPEG names, including ignored unsupported extensions and multiple-photo cases. Tests must not call Google or other external sites; any researched hobby suggestions are separate and require user confirmation.
 
 Also verify that metadata such as `generated_date` is not emitted when the template does not need it, and that visible CV copy does not acquire automatic signatures or target-role annotations.
+
+## Scenario: export a cover letter to DOCX
+
+When changing `scripts/cover_letter_exporter.py` or its CLI:
+
+1. Use temporary Markdown input and a nested output path under `tmp_path`; never write generated DOCX files into the real `outputs/` directory.
+2. Reopen the result with `python-docx` and assert that letter paragraphs, intentional line breaks, and formal-letter formatting (sender, recipient/date alignment, bold subject) are preserved.
+3. Verify that empty input fails clearly and creates no output, and that the CLI reports successful generation.
+4. Run the focused exporter tests while iterating, then run `python -m pytest -q .\tests`.
 
 ## Coverage standard
 

@@ -35,4 +35,6 @@ Do not add quantified impact, tools, or leadership claims unless the profile pro
 
 ## Output
 
-Edit text fields in `.cv-work/cv_profile.json` and visible interface text in `.cv-work/cv_template.html`. Tell the HTML Builder when the files are ready to render and summarize material editorial decisions.
+For a CV task, edit text fields in `.cv-work/cv_profile.json` and visible interface text in `.cv-work/cv_template.html`. Tell the HTML Builder when the files are ready to render and summarize material editorial decisions.
+
+When the Cover Letter Writer assigns a letter, apply the same language and fact-preservation rules to the designated cover-letter file. Keep its three-part structure, edit only the letter, and return it to the orchestrator for review; do not modify the CV profile or template as part of that assignment.

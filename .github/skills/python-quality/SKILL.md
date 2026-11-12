@@ -5,13 +5,13 @@ description: Apply Python maintainability, PEP 8, type-safety, and error-handlin
 
 # Python quality for CV Generator
 
-Use this skill before changing either Python script in this repository: `scripts/cv_generator.py` or `scripts/linkedin_pdf_importer.py`.
+Use this skill before changing any Python script in this repository, including `scripts/cv_generator.py`, `scripts/linkedin_pdf_importer.py`, and `scripts/cover_letter_exporter.py`.
 
 ## Workflow
 
 1. Read the affected function, its callers, the relevant template, and related tests before editing.
 2. Follow the repository's existing patterns and Python 3.9+ compatibility. Use four-space indentation, descriptive `snake_case` names, small cohesive functions, and explicit types where they clarify contracts.
-3. Keep the change focused. Prefer the standard library and existing Jinja2 helpers; do not add dependencies or abstractions for a one-off need.
+3. Keep the change focused. Prefer the standard library and existing dependencies; add a dependency only when the requested behavior needs it, and declare it in `requirements.txt`.
 4. Validate external inputs at their boundary. Raise or report actionable errors; do not swallow exceptions or silently substitute invalid data.
 5. Use context managers for files, UTF-8 for JSON/HTML, and Jinja autoescaping for HTML data. Never mark user-supplied values safe just to bypass escaping.
 6. Preserve existing CLI behavior unless the task explicitly changes it. Avoid premature optimization; optimize only a demonstrated bottleneck without reducing readability.
@@ -36,6 +36,16 @@ When modifying `scripts/linkedin_pdf_importer.py`:
 3. Keep profile photos separate from PDF parsing. Enumerate only PNG/JPG/JPEG candidates in `data/`; never extract embedded images or preserve stale photo paths from fallback JSON.
 4. Make ambiguous PDF/JSON/photo choices explicit rather than silently selecting a different profile or image.
 5. Keep the importer CLI focused, use UTF-8 for JSON, surface unreadable input errors, and avoid logging profile content or personal information.
+
+## Scenario: export a cover letter to DOCX
+
+When modifying `scripts/cover_letter_exporter.py`:
+
+1. Use `python-docx` rather than hand-writing Office Open XML.
+2. Read the UTF-8 Markdown source, preserve paragraph and intentional line-break boundaries, and reject empty input with a clear error.
+3. Keep the output path explicit, create its parent directory only as needed, and do not write test or generated files into `outputs/`.
+4. Preserve plain letter text; do not inject profile facts, a date, or a signature that was not present in the source.
+5. Add or update tests that reopen the generated DOCX and verify its text and paragraph structure.
 
 ## Completion checklist
 
